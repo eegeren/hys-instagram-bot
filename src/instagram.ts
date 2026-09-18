@@ -13,7 +13,8 @@ export function parseMessages(payload: unknown, accountId: string, localTestMode
       if ((!localTestMode && (!isRecord(recipient) || recipient.id !== accountId)) || sender.id === accountId || message.is_echo || message.is_deleted) continue;
       if (typeof sender.id !== 'string' || !/^\d+$/.test(sender.id)) continue;
       if (typeof message.mid !== 'string' || !message.mid || typeof message.text !== 'string' || !message.text.trim()) continue;
-      messages.push({ id: message.mid, senderId: sender.id, text: message.text });
+      messages.push({ id: message.mid, senderId: sender.id, text: message.text,
+        ...(typeof event.timestamp === 'number' && Number.isFinite(event.timestamp) && event.timestamp > 0 && event.timestamp <= 8640000000000000 ? { timestamp: event.timestamp } : {}) });
     }
   }
   return messages;

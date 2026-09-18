@@ -7,7 +7,7 @@
     "test:webhook": "node scripts/test-webhook.mjs",
     "test": "tsx --test tests/*.test.ts",
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "start": "node dist/index.js"
   },
